@@ -14,6 +14,39 @@ add_action('wp_enqueue_scripts','load_assets');
 
 function contact_form_page(){
     add_menu_page( 'Contact From Plus', 'Contact From Plus', 'manage_options', 'contact-form', 'contact_form_html','dashicons-media-text',8 );
+    add_submenu_page( 'contact-form','Data Mail','Data Mail', 'manage_options','data-form','dataMail');
+}
+
+ function dataMail(){
+  wp_enqueue_style('namespace'); 
+
+  $result = getDataContact();
+  ?>
+  <table class="table" style="width: 600px;margin-left:300px;">
+  <thead class="thead-dark bg-primary text-white">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($result as $row){?>
+    <tr>
+      <th><?php echo $row['id']?></th>
+      <td><?php echo $row['name']?></td>
+      <td><?php echo $row['email']?></td>
+      <td><?php echo $row['subject']?></td>
+      <td><?php echo $row['message']?></td>
+    </tr>
+   <?php } ?>
+  </tbody>
+</table>
+
+ 
+  <?php
 }
 
 function load_assets(){
@@ -114,7 +147,6 @@ if(!message.checked){
 </script>
   <?php
       echo '<div >shortcode : ' . '[contact_form]';
-      contact_data();
 
 }
 
@@ -248,35 +280,6 @@ function getData()
   }
 
 
-function contact_data(){
-    $result = getDataContact();
-  ?>
-  <table class="table" style="width: 600px;margin-left:300px;">
-  <thead class="thead-dark bg-primary text-white">
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Subject</th>
-      <th scope="col">Message</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach($result as $row){?>
-    <tr>
-      <th><?php echo $row['id']?></th>
-      <td><?php echo $row['name']?></td>
-      <td><?php echo $row['email']?></td>
-      <td><?php echo $row['subject']?></td>
-      <td><?php echo $row['message']?></td>
-    </tr>
-   <?php } ?>
-  </tbody>
-</table>
-
- 
-  <?php
-}
 
 function loadShortcode(){
  
